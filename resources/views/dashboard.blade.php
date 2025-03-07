@@ -1,22 +1,4 @@
-{{--<x-app-layout>--}}
-{{--    <x-slot name="header">--}}
-{{--        <h2 class="font-semibold text-xl text-gray-800 leading-tight">--}}
-{{--            {{ __('Dashboard') }}--}}
-{{--        </h2>--}}
-{{--    </x-slot>--}}
-
-{{--    <div class="py-12">--}}
-{{--        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">--}}
-{{--            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">--}}
-{{--                <div class="p-6 text-gray-900">--}}
-{{--                    {{ __("You're logged in!") }}--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</x-app-layout>--}}
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -93,15 +75,30 @@
                 </div>
             </div>
 
+{{--            <div class="row mt-4">--}}
+{{--                <div class="col-md-8">--}}
+{{--                    <div>--}}
+{{--                        <img src="{{ asset('images/revenue_chart.png') }}" height="295" width="650"  alt="revenue chart"/>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-4">--}}
+{{--                    <div>--}}
+{{--                        <img src="{{ asset('images/overview_chart.png') }}" height="295" width="280"  alt="revenue chart"/>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
             <div class="row mt-4">
                 <div class="col-md-8">
-                    <div>
-                        <img src="{{ asset('images/revenue_chart.png') }}" height="295" width="650"  alt="revenue chart"/>
+                    <div class="card p-3">
+                        <h5>Revenue</h5>
+                        <canvas id="revenueChart"></canvas>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div>
-                        <img src="{{ asset('images/overview_chart.png') }}" height="295" width="280"  alt="revenue chart"/>
+                    <div class="card p-3">
+                        <h5>Jan 2025</h5>
+                        <canvas id="barChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -118,6 +115,43 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Total Revenue',
+                data: [2000, 1500, 1000, 1800, 2200, 2800, 3000, 3200, 2900, 3100, 3300, 3500],
+                borderColor: '#7b42f6',
+                tension: 0.3
+            }]
+        }
+    });
+
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Views', 'Clicks', 'Orders'],
+            datasets: [{
+                data: [2100, 1000, 1900],
+                backgroundColor: ['#7b42f6', '#4285F4', '#B72FD3']
+            }]
+        }
+    });
+</script>
 </body>
 </html>
+
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
+
+    <x-dropdown-link :href="route('logout')"
+                     onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+        {{ __('Log Out') }}
+    </x-dropdown-link>
+</form>
 

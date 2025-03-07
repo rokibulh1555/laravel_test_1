@@ -10,7 +10,7 @@
 <div class="w-full h-100 d-flex" style="background-color: #ffffff">
     <div class="w-50" style="padding: 3rem 5rem;">
         <div class="regi_box">
-            <div style="text-align: left">
+            <div style="text-align: left; margin-left: 1.7rem">
                 <div style="width: 100%">
                     <img src="{{ asset('images/Logo_1.png') }}" alt="Logo" />
                 </div>
